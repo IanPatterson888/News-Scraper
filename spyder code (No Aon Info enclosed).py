@@ -127,7 +127,7 @@ def div_extractor(page_soup, d_dict):
     #Some divs won't have descriptions, links or whatever-don't want it to fail
     for div in div_html:
         
-        #element = dict[0], class_= dict[2]
+        #element = dict[0], class_= dict[1]
         try:
             hl_ele = div.find(d_dict["hl"][0], d_dict["hl"][1])
             hl = hl_ele.get_text()
