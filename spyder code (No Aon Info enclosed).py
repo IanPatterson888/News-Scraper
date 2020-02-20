@@ -310,3 +310,53 @@ def news_scraper(url_list, dict_list):
 #output of the earlier form of the scraper (didn't include ft.com at that
 #point)           
 
+'''
+Intention is to analyse the headlines, descriptions, tags and articles for keywords
+relating to current events etc. Then will get maybe a top 10 topics or keywords
+and push them onto the aon mylearning portal (using code below).
+Then, depending on how many of the keywords return results, will maybe take 1
+video from each search until 5-10 or however many articles are retrieved.
+Will then send these in an email to whoever
+editing this part in github so can't see the 79 char line on spyder
+'''
+
+
+  
+
+
+def push_keywords(keywords):
+    
+    #I probably should put this user/pass combo here (even for trusted people)
+    aon_id = *******
+
+    password = *******
+    
+    browser  = start_browser()
+    portal_home = "https://www.aonmylearning.com/"
+    browser.visit(portal_home)
+    
+    
+    browser.find_by_id("Ecom-User-Id").fill(aon_id)
+    browser.find_by_id("Ecom_Password").fill(password)
+    sign_in_xpath = "/html/body/div/div/div[4]/form/a"
+    browser.find_by_xpath(sign_in_xpath).click()
+    
+    search_xpath = "/html/body/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div/lxp-autocomplete/form/div/input"
+    search_btn_xpath = "/html/body/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div/lxp-autocomplete/form/div/div/input"
+    browser.find_by_xpath(search_xpath).fill(keyword)
+    browser.find_by_xpath(search_btn_xpath).click()
+    
+    #maybe I should extract them all from each search. I can narrow
+    #it down after extracting them all. Will require fewer searches that way
+    page_soup = BeautifulSoup(browser.html, "html5lib")
+    target_divs = page_soup.find_all("div", class_= "d-md-flex align-items-center")
+    for div in target_divs: 
+      title = target_div.find_first("small").get_text()
+      desc = target_div.find_first("div", class_="description truncate").get_text()
+      link_ele = target_div.find("a", class_="btn btn-teal btn-launch")
+      link = link_ele["href"]
+      
+   #Literally stopping mid "sentence" because I'm supposed to be doing something else
+    
+    
+
